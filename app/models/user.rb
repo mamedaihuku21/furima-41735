@@ -4,9 +4,15 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
         :recoverable, :rememberable, :validatable
 
-  validates :nickname, presence: true
-  validates :email,    presence: true, uniqueness: true,
-                    format: { with: /\A[^@\s]+@[^@\s]+\z/, message: "は@を含む正しい形式で入力してください" }
+  validates :nickname, :family_name, :first_name, :family_name_kana, :first_name_kana, :birthday, presence: true
+
+  #メールアドレス
+  validates :email,    presence: true, uniqueness: true, format: { with: /\A[^@\s]+@[^@\s]+\z/}
+  
+  #カタカナ
+  validates :family_name_kana, :first_name_kana, format: { with: /\A[ァ-ヶー－]+\z/}
+  #名前
+  validates :family_name, :first_name, format: { with: /\A[ぁ-んァ-ン一-龥々ー]+\z/, message: "は全角（漢字・ひらがな・カタカナ）で入力してください" }
   
   validate :password_complexity
   
