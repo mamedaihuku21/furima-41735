@@ -7,7 +7,7 @@ class User < ApplicationRecord
   validates :nickname, :family_name, :first_name, :family_name_kana, :first_name_kana, :birthday, presence: true
 
   #メールアドレス
-  validates :email,    presence: true, uniqueness: true, format: { with: /\A[^@\s]+@[^@\s]+\z/}
+  validates :email, presence: true, uniqueness: true, format: { with: /\A[^@\s]+@[^@\s]+\z/}
   
   #カタカナ
   validates :family_name_kana, :first_name_kana, format: { with: /\A[ァ-ヶー－]+\z/}
