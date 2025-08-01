@@ -10,7 +10,8 @@ class Item < ApplicationRecord
   belongs_to :shipping_cost
   belongs_to :status
 
-
+  validates :user, presence: true
+  
   validates :title, :explanation, :category_id, :status_id, :shipping_cost_id, :prefecture_id, :handing_time_id, :price, presence: true
 
   validates :category_id, :status_id, :shipping_cost_id, :prefecture_id, :handing_time_id, numericality: { other_than: 1, message: "を選択してください" }
