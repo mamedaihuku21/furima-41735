@@ -127,7 +127,9 @@
       新規投稿商品
     </div>
     <ul class='item-lists'>
-      <li class='list'> 
+      <% if @items.any? %>
+        <% @items.each do |item| %>
+        <li class="list">
         <%= link_to "#" do %>
           <div class="item-img-content">
             <% if item.image.attached? %>
@@ -155,7 +157,7 @@
         <% end %>
       </li>
       <% end %>
-      
+
       <% else %>
       <li class='list'>
         <%= link_to '#' do %>
