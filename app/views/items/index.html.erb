@@ -127,19 +127,19 @@
       新規投稿商品
     </div>
     <ul class='item-lists'>
-      <li class='list'> 
-        <%= link_to "#" do %>
+      <% if @items.any? %>
+        <% @items.each do |item| %>
+        <li class="list">
+        <%= link_to item_path(item) do %>
           <div class="item-img-content">
-            <% if item.image.attached? %>
-              <%= image_tag item.image, class: "item-img" %>
-            <% else %>
-              <%= image_tag "item-sample.png", class: "item-img" %>
-            <% end %>
+            <%= image_tag item.image, class: "item-img" %>
 
-          <div class='sold-out'>
-            <span>Sold Out!!</span>
+
+            <div class='sold-out'>
+              <span>Sold Out!!</span>
+            </div>
           </div>
-
+          
         <div class='item-info'>
           <h3 class='item-name'>
             <%= item.title %>
@@ -155,11 +155,11 @@
         <% end %>
       </li>
       <% end %>
-      
+
       <% else %>
       <li class='list'>
         <%= link_to '#' do %>
-        <%= image_tag "https://tech-master.s3.amazonaws.com/uploads/curriculums/images/Rails1-4/sample.jpg", class: "item-img" %>
+          <%= image_tag "https://tech-master.s3.amazonaws.com/uploads/curriculums/images/Rails1-4/sample.jpg", class: "item-img" %>
         <div class='item-info'>
           <h3 class='item-name'>
             商品を出品してね！
