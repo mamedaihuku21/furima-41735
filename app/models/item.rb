@@ -17,7 +17,7 @@ class Item < ApplicationRecord
 
   validates :category_id, :status_id, :shipping_cost_id, :prefecture_id, :handing_time_id, numericality: { other_than: 1, message: "を選択してください" }
 
-  validate :image_presence
+  validates :image, presence: true,on: :create
 
   validates :price, numericality: {
     only_integer: true,
