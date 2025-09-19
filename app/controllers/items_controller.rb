@@ -12,7 +12,6 @@ before_action :ensure_owner_for_edit, only: [:edit, :update]
   end
 
   def show
-    @item = Item.find(params[:id])
   end
 
   def create
@@ -21,18 +20,16 @@ before_action :ensure_owner_for_edit, only: [:edit, :update]
     if @item.save
       redirect_to root_path
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
   def edit
-    @item = Item.find(params[:id])
   end
 
   def update
-    item = Item.find(params[:id])
     if @item.update(item_params)
-    redirect_to item_path(@item), notice: 
+      redirect_to item_path(@item)
     else
       render :edit, status: :unprocessable_entity
     end
