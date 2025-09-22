@@ -28,9 +28,4 @@ class Item < ApplicationRecord
 
   private
 
-  def image_presence
-    if new_record? && !image.attached?
-      errors.add(:image, "を選択してください")
-    end
-  end
 end
