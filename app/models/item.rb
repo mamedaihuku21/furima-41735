@@ -17,7 +17,7 @@ class Item < ApplicationRecord
 
   validates :category_id, :status_id, :shipping_cost_id, :prefecture_id, :handing_time_id, numericality: { other_than: 1, message: "を選択してください" }
 
-  validate :image_presence
+  validates :image, presence: true
 
   validates :price, numericality: {
     only_integer: true,
@@ -28,7 +28,4 @@ class Item < ApplicationRecord
 
   private
 
-  def image_presence
-    errors.add(:image, "を選択してください") unless image.attached?
-  end
 end
