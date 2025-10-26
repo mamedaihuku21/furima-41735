@@ -1,19 +1,26 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_item
-  before_action :move_to_root, only: [:index, :create]
-
+  before_action :set_item, only: [:index, :create]
 
   def index
+    @item = Item.find(params[:item_id])
     @order = Order.new
   end
 
   def create
-    @order = Order.new(user_id: current_user.id, item_id: @item.id)
-    if @order.save
-      redirect_to root_path, notice: "購入が完了しました。"
+    @order = Order.new(order_params)
+    if @order.valid?
+      Payjp.api_key = ""
+      Payjp::Charge.create(
+        amount: order_params[:price],
+        card: order_params[:token],
+        currency: 'jpy'
+      )
+      #次は決済処理が行われるか確認しようのところから
+      @order.save
+      return redirect_to root_path
     else
-      render :index, status: :unprocessable_entity
+      render 'index', status: :unprocessable_entity
     end
   end
 
@@ -23,10 +30,8 @@ class OrdersController < ApplicationController
     @item = Item.find(params[:item_id])
   end
 
-  def move_to_root
-    if current_user.id == @item.user_id || @item.order.present?
-      redirect_to root_path
-    end
+  def order_params
+    params.require(:order).permit(:price).merge(token: params[:token])
   end
 
 end
