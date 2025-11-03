@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_item, only: [:index, :create]
-   before_action :redirect_if_seller_or_sold, only: [:index, :create]
+  before_action :redirect_if_seller_or_sold, only: [:index, :create]
 
   def index
     @order_address = OrderAddress.new
@@ -36,7 +36,6 @@ class OrdersController < ApplicationController
         card: order_params[:token],
         currency: 'jpy'
       )
-    end
   end  
 
   def redirect_if_seller_or_sold
@@ -44,4 +43,4 @@ class OrdersController < ApplicationController
       redirect_to root_path
     end
   end
-
+end
