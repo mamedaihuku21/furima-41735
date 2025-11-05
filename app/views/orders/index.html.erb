@@ -7,6 +7,7 @@
       購入内容の確認
     </h1>
     <%# 購入内容の表示 %>
+
     <div class='buy-item-info'>
       <%= image_tag @item.image, class: 'buy-item-img' if @item.image.attached? %>
       <div class='buy-item-right-content'>
@@ -31,6 +32,16 @@
       </p>
     </div>
     <%# /支払額の表示 %>
+
+    <% if @order_address.errors.any? %>
+      <div class="error-alert">
+        <ul>
+          <% @order_address.errors.full_messages.each do |message| %>
+            <li class="error-message"><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 
     <%= form_with model: @order_address, url: item_orders_path(@item), id: 'charge-form', class: 'card-form',local: true do |f| %>
     <%# カード情報の入力 %>
