@@ -15,12 +15,10 @@ class OrderAddress
   end
 
   def save
-    item = Item.find(item_id)
 
     order = Order.create(
       item_id: item_id,
       user_id: user_id,
-      price: item.price
     )
 
     Address.create(

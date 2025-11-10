@@ -1,22 +1,25 @@
 <%= render "shared/second-header"%>
 <script src="https://js.pay.jp/v2/pay.js"></script>
+<script>
+  window.payjpPublicKey = "<%= ENV['PAYJP_PUBLIC_KEY'] %>";
+</script>
 
 <div class='transaction-contents'>
   <div class='transaction-main'>
     <h1 class='transaction-title-text'>
       購入内容の確認
     </h1>
-    <%# 購入内容の表示 %>
 
+    <%# 購入内容の表示 %>
     <div class='buy-item-info'>
-      <%= image_tag @item.image, class: 'buy-item-img' if @item.image.attached? %>
+      <%= image_tag "item-sample.png", class: 'buy-item-img' %>
       <div class='buy-item-right-content'>
         <h2 class='buy-item-text'>
           <%= @item.title %>
         </h2>
         <div class='buy-item-price'>
           <p class='item-price-text'>¥<%= @item.price %></p>
-          <p class='item-price-sub-text'><%= @item.shipping_cost_id %></p>
+          <p class='item-price-sub-text'><%= @item.shipping_cost.name %></p>
         </div>
       </div>
     </div>
