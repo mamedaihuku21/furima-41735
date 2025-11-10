@@ -18,7 +18,7 @@ class User < ApplicationRecord
   private
 
   def password_complexity
-    return if password.blank? # Deviseがpresenceとlengthチェック済み
+    return if password.blank?
 
     unless password.match?(/\A(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]+\z/)
       errors.add(:password, "は半角英数字混合で入力してください")

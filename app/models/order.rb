@@ -1,8 +1,7 @@
 class Order < ApplicationRecord
-  #belongs_to :user
-  #belongs_to :item
 
-  #validates :user, presence: true 
+  belongs_to :user
+  belongs_to :item
+  has_one :address
 
-  #validates :item, presence: true
 end
