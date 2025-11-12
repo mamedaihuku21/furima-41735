@@ -37,6 +37,7 @@ before_action :redirect_if_sold_out, only: [:edit, :update]
   end
 
   def destroy
+    @item = Item.find(params[:id])
     if @item.destroy
       redirect_to root_path
     else
